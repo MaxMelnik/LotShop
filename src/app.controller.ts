@@ -1,5 +1,5 @@
 import Redis from 'ioredis';
-import { Controller, Get, Query, Post, Body } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { InjectRedis } from '@nestjs-modules/ioredis';
 
 @Controller()
@@ -9,7 +9,6 @@ export class AppController {
   @Get()
   async getHello() {
     await this.redis.set('key', 'Redis data!');
-    const redisData = await this.redis.get('key');
-    return { redisData };
+    return await this.redis.get('key');
   }
 }
